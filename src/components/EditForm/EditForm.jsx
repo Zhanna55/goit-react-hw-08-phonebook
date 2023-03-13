@@ -2,8 +2,9 @@ import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { editContact } from 'Redux/contacts/operations';
+import { FormField, Error } from 'components/ContactForm/ContactForm.styled';
 import { Flex, Box, Button, FormLabel, useColorMode } from '@chakra-ui/react';
-import { FormField, Error } from './ContactForm.styled';
+// import { FormField, Error } from './ContactForm.styled';
 
 const schema = yup.object().shape({
   name: yup
@@ -22,24 +23,22 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function ContactForm() {
+export default function EditForm({ contact }) {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
-  const handleSubmit = ({ name, number }, { resetForm }) => {
-    console.log({ name, number });
-    dispatch(editContact({ name, number }));
-
-    resetForm();
+  const onEditContact = ({ id, name, number }) => {
+    dispatch(editContact({ id, name, number }));
+    console.log({ id, name, number });
   };
-
   return (
     <Formik
       initialValues={{
-        name: '',
-        number: '',
+        id: contact.id,
+        name: contact.name,
+        number: contact.number,
       }}
       validationSchema={schema}
-      onSubmit={handleSubmit}
+      onSubmit={onEditContact}
     >
       {props => (
         <Flex
@@ -70,7 +69,7 @@ export default function ContactForm() {
                 isLoading={props.isSubmitting}
                 type="submit"
               >
-                Add contact
+                Save changes
               </Button>
             </Form>
           </Box>
