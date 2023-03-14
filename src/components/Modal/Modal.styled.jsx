@@ -9,7 +9,7 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #234e52;
   z-index: 1200;
 `;
 export const ModalContainer = styled.div`

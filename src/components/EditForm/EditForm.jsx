@@ -1,10 +1,10 @@
 import { Formik, Form } from 'formik';
+import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { editContact } from 'Redux/contacts/operations';
 import { FormField, Error } from 'components/ContactForm/ContactForm.styled';
 import { Flex, Box, Button, FormLabel, useColorMode } from '@chakra-ui/react';
-// import { FormField, Error } from './ContactForm.styled';
 
 const schema = yup.object().shape({
   name: yup
@@ -23,12 +23,12 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function EditForm({ contact }) {
+export default function EditForm({ contact, onClose }) {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
   const onEditContact = ({ id, name, number }) => {
     dispatch(editContact({ id, name, number }));
-    console.log({ id, name, number });
+    onClose();
   };
   return (
     <Formik
@@ -40,7 +40,7 @@ export default function EditForm({ contact }) {
       validationSchema={schema}
       onSubmit={onEditContact}
     >
-      {props => (
+      {({ isSubmitting }) => (
         <Flex
           bg={colorMode === 'dark' ? '#234E52' : 'white'}
           align="center"
@@ -66,8 +66,9 @@ export default function EditForm({ contact }) {
               <Button
                 mt={2}
                 colorScheme="teal"
-                isLoading={props.isSubmitting}
+                // isLoading={props.isSubmitting}
                 type="submit"
+                disabled={isSubmitting}
               >
                 Save changes
               </Button>
@@ -78,3 +79,12 @@ export default function EditForm({ contact }) {
     </Formik>
   );
 }
+
+EditForm.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  onClose: PropTypes.func.isRequired,
+};

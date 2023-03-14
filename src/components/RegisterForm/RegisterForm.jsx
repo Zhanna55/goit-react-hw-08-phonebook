@@ -9,7 +9,6 @@ export default function RegisterForm() {
   const { colorMode } = useColorMode();
   const handleSubmit = ({ name, email, password }, { resetForm }) => {
     dispatch(authOperations.register({ name, email, password }));
-    console.log({ name, email, password });
     resetForm();
   };
   return (

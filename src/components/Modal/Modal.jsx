@@ -1,24 +1,10 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
 import PropTypes from 'prop-types';
-import { deleteContact, editContact } from 'Redux/contacts/operations';
 import { Overlay, ModalContainer } from './Modal.styled';
-import {
-  ListItem,
-  Text,
-  Button,
-  useColorMode,
-  Flex,
-  Box,
-  FormLabel,
-} from '@chakra-ui/react';
-import { FormField, Error } from 'components/ContactForm/ContactForm.styled';
+import { Button } from '@chakra-ui/react';
 import EditForm from 'components/EditForm/EditForm';
 
 const Modal = ({ contact, onClose }) => {
-  const { colorMode } = useColorMode();
-
   useEffect(() => {
     const onKeyDown = e => {
       if (e.code === 'Escape') {
@@ -42,7 +28,7 @@ const Modal = ({ contact, onClose }) => {
         <Button colorScheme="teal" size="xs" type="button" onClick={onClose}>
           X
         </Button>
-        <EditForm contact={contact} />
+        <EditForm contact={contact} onClose={onClose} />
       </ModalContainer>
     </Overlay>
   );

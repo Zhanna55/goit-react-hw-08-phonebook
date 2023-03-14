@@ -26,7 +26,6 @@ export default function ContactForm() {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
   const handleSubmit = ({ name, number }, { resetForm }) => {
-    console.log({ name, number });
     dispatch(addContact({ name, number }));
 
     resetForm();

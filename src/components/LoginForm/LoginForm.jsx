@@ -8,7 +8,6 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
   const handleSubmit = ({ email, password }, { resetForm }) => {
-    console.log({ email, password });
     dispatch(authOperations.logIn({ email, password }));
     resetForm();
   };

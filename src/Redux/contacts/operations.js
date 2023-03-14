@@ -41,7 +41,6 @@ export const editContact = createAsyncThunk(
   'contacts/editContact',
   async ({ id, name, number }, thunkAPI) => {
     try {
-      console.log('contactId=', id);
       const response = await axios.patch(`/contacts/${id}`, {
         name,
         number,
@@ -52,19 +51,3 @@ export const editContact = createAsyncThunk(
     }
   }
 );
-
-// 640e45aa8200000014e52ae8
-// export const editContact = createAsyncThunk(
-//   'contacts/editContact',
-//   async ({ name, number, contactId }, thunkAPI) => {
-//     try {
-//       const response = await axios.patch(`/contacts/${contactId}`, {
-//         name,
-//         number,
-//       });
-//       return response.data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
