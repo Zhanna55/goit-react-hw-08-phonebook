@@ -1,9 +1,17 @@
 import { useDispatch } from 'react-redux';
+import * as yup from 'yup';
 import { Formik, Form, ErrorMessage } from 'formik';
 import authOperations from 'Redux/auth/auth-operations';
 import { Flex, Box, Button, FormLabel, useColorMode } from '@chakra-ui/react';
 import { FormField } from 'components/ContactForm/ContactForm.styled';
 
+const schema = yup.object().shape({
+  email: yup.string().email('Please enter a valid email').required('Required'),
+  password: yup
+    .string()
+    .min(6, 'password must contain 6 or more characters')
+    .required('Required'),
+});
 export default function LoginForm() {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
@@ -17,6 +25,7 @@ export default function LoginForm() {
         email: '',
         password: '',
       }}
+      validationSchema={schema}
       onSubmit={handleSubmit}
     >
       {props => (
